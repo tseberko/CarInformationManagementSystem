@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>models</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/shards.min.css">
+</head>
+<body>
+<div class="welcome d-flex justify-content-center flex-column  bg-dark text-white">
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark pt-4 px-0">
+            <a class="navbar-brand mr-5" href="/index">
+                Car information
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/models">Models<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/body-types">Body types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About project</a>
+                    </li>
+                </ul>
+
+                <!-- Social Icons -->
+                <ul class="header-social-icons navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://twitter.com/?lang=uk"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://uk-ua.facebook.com/"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Navigation -->
+    </div>
+    <!-- container -->
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Models</h2>
+            <table class="table table-hover table-bordered results">
+                <thead>
+                <tr>
+                    <th scope="col" >Name</th>
+                    <th scope="col" >Body type</th>
+                    <th scope="col" >Number seats</th>
+                    <th scope="col" >Maximum speed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="model : ${modelsOfCars}">
+                    <td th:text="${model.name}"></td>
+                    <td th:text="${model.bodyType.name}"></td>
+                    <td th:text="${model.numOfSeats}"></td>
+                    <td th:text="${model.maxSpeed}"></td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a type="button" class="btn btn-secondary active" th:href="@{~/models/update/{id}(id=${model.id})}">update</a>
+                            <a type="button" class="btn btn-secondary active" data-toggle="modal" data-target="#exampleModal">delete</a>
+                            <!-- <button type="button" class="btn"  th:href="@{~/models/delete/{id}(id=${model.id})}">delete</button> -->
+                            <a type="button" class="btn btn-secondary active" th:href="@{~/models/change-body-type/{id}(id=${model.id})}">change bodyType</a>
+                        </div>
+
+                        <!-- <td><a th:href="@{~/models/update/{id}(id=${model.id})}">update</a></td>
+                        <td><a th:href="@{~/models/delete/{id}(id=${model.id})}">delete</a></td>
+                        <td><a th:href="@{~/models/change-body-type/{id}(id=${model.id})}">change bodyType</a></td> -->
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure want deleted this record?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        This record will be deleted...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nope</button>
+                                        <a type="button" class="btn btn-primary active" th:href="@{~/models/delete/{id}(id=${model.id})}">Yep</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </tr>
+                </tbody>
+            </table>
+            <p class="my-5"><a th:href="@{~/models/new}" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <footer >
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link px-2 text-muted" href="/models">Models<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" href="/body-types">Body types</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" href="#">About project</a>
+                </li>
+        </ul>
+        <p class="text-center text-muted">© 2023 Car_information, Inc</p>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="js/shards.min.js"></script>
+</body>
+</html>
+
+
+

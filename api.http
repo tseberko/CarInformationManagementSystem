@@ -1,0 +1,47 @@
+### Get All Body Types
+GET http://localhost:8080/api/body-types
+Accept: application/json
+
+
+### Get Body Type By Id
+GET http://localhost:8080/api/body-types/2
+Accept: application/json
+
+
+### Create new Body Type
+POST http://localhost:8080/api/body-types
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "jet",
+  "note": "jet note",
+  "description": "jet description2"
+}
+
+
+### Update Body Type By Id
+PUT http://localhost:8080/api/body-types/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "car",
+  "note": "notice",
+  "description": "huge description"
+}
+
+
+### Delete Body Type By Id
+DELETE http://localhost:8080/api/body-types/3
+Accept: application/json
+
+
+### Change Parent of BodyType by Id
+PATCH http://localhost:8080/api/body-types/4/parent
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 5
+}
